@@ -7,18 +7,22 @@ import java.net.URL;
 
 public class LoadWeatherService {
     public void loadWeatherFor(String cityName){
-
+        System.out.println(readWebsite("http://facebook.com"));
     }
 
     private String readWebsite(String url){
         StringBuilder content = new StringBuilder();
         try {
              HttpURLConnection http = (HttpURLConnection) new URL(url).openConnection();
+             http.setRequestMethod("GET");
+
              InputStream inputStream =  http.getInputStream();
 
-             int data;
-             while ((data = inputStream.read()) != -1){
+             int data = inputStream.read();
+             while (data != -1){
                  content.append((char) data);
+
+                 data = inputStream.read();
              }
              inputStream.close();
         } catch (IOException e) {

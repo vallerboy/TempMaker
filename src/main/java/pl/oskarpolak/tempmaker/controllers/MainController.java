@@ -1,12 +1,15 @@
 package pl.oskarpolak.tempmaker.controllers;
 
+import pl.oskarpolak.tempmaker.models.LoadWeatherService;
 import pl.oskarpolak.tempmaker.views.MenuView;
 
 public class MainController {
     private MenuView menuView;
+    private LoadWeatherService loadWeatherService;
 
     public MainController(){
         menuView = new MenuView();
+        loadWeatherService = new LoadWeatherService();
     }
 
     public void startApp(){
@@ -17,6 +20,6 @@ public class MainController {
     }
 
     private void getWeather(String city) {
-
+        loadWeatherService.loadWeatherFor(city);
     }
 }
