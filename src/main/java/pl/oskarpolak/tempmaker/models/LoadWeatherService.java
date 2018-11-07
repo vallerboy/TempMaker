@@ -7,7 +7,10 @@ import java.net.URL;
 
 public class LoadWeatherService {
     public void loadWeatherFor(String cityName){
-        System.out.println(readWebsite("http://www.phototimekeeper.co.uk/"));
+        System.out.println(readWebsite("https://api.openweathermap.org/data/2.5/weather?q="
+                        + cityName
+                        + "&appid="
+                        + Config.API_KEY));
     }
 
     private String readWebsite(String url){
