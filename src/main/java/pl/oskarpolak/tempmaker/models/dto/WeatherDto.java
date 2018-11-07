@@ -6,8 +6,16 @@ public class WeatherDto {
     @SerializedName("main")
     private TempDto tempDto;
 
+    @SerializedName("clouds")
+    private CloudDto cloudDto;
+
+
     public TempDto getTempDto() {
         return tempDto;
+    }
+
+    public CloudDto getCloudDto() {
+        return cloudDto;
     }
 
     public static class TempDto {
@@ -17,8 +25,16 @@ public class WeatherDto {
             return temp;
         }
 
-        public void setTemp(double temp) {
-            this.temp = temp;
+    }
+
+    public static class CloudDto {
+
+        @SerializedName("all")
+        private double cloudy;
+
+        public double getCloudy() {
+            return cloudy;
         }
+
     }
 }

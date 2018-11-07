@@ -21,6 +21,6 @@ public class MenuView {
     }
 
     public void printWeather(WeatherDto weatherDto){
-        printString(weatherDto.getTempDto().getTemp() + "");
+        printString(weatherDto.getTempDto().getTemp() + " " + weatherDto.getCloudDto().getCloudy());
     }
 }
