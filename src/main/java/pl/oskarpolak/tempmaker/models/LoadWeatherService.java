@@ -7,7 +7,7 @@ import java.net.URL;
 
 public class LoadWeatherService {
     public void loadWeatherFor(String cityName){
-        System.out.println(readWebsite("http://facebook.com"));
+        System.out.println(readWebsite("http://www.phototimekeeper.co.uk/"));
     }
 
     private String readWebsite(String url){
