@@ -1,5 +1,7 @@
 package pl.oskarpolak.tempmaker.views;
 
+import pl.oskarpolak.tempmaker.models.dto.WeatherDto;
+
 import java.util.Scanner;
 
 public class MenuView {
@@ -16,5 +18,9 @@ public class MenuView {
 
     private void printString(String s) {
         System.out.println(s);
+    }
+
+    public void printWeather(WeatherDto weatherDto){
+        printString(weatherDto.getTempDto().getTemp() + "");
     }
 }

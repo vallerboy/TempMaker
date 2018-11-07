@@ -1,16 +1,27 @@
 package pl.oskarpolak.tempmaker.models;
 
+import com.google.gson.Gson;
+import pl.oskarpolak.tempmaker.models.dto.WeatherDto;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class LoadWeatherService {
-    public void loadWeatherFor(String cityName){
-        System.out.println(readWebsite("https://api.openweathermap.org/data/2.5/weather?q="
+    private Gson gson;
+
+    public LoadWeatherService(){
+        gson = new Gson();
+    }
+
+
+    public WeatherDto loadWeatherFor(String cityName){
+        WeatherDto weatherDto = convertJsonToWeather(readWebsite("https://api.openweathermap.org/data/2.5/weather?q="
                         + cityName
                         + "&appid="
                         + Config.API_KEY));
+        return weatherDto;
     }
 
     private String readWebsite(String url){
@@ -32,5 +43,9 @@ public class LoadWeatherService {
             e.printStackTrace();
         }
         return content.toString();
+    }
+
+    private WeatherDto convertJsonToWeather(String json){
+         return gson.fromJson(json, WeatherDto.class);
     }
 }

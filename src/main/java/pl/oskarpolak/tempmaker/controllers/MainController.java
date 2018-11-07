@@ -1,6 +1,7 @@
 package pl.oskarpolak.tempmaker.controllers;
 
 import pl.oskarpolak.tempmaker.models.LoadWeatherService;
+import pl.oskarpolak.tempmaker.models.dto.WeatherDto;
 import pl.oskarpolak.tempmaker.views.MenuView;
 
 public class MainController {
@@ -20,6 +21,7 @@ public class MainController {
     }
 
     private void getWeather(String city) {
-        loadWeatherService.loadWeatherFor(city);
+        WeatherDto weatherDto = loadWeatherService.loadWeatherFor(city);
+        menuView.printWeather(weatherDto);
     }
 }
