@@ -23,4 +23,8 @@ public class MenuView {
     public void printWeather(WeatherDto weatherDto){
         printString(weatherDto.getTempDto().getTemp() + " " + weatherDto.getCloudDto().getCloudy());
     }
+
+    public void printAvg(double avg){
+        printString("Srednia temp to: " + avg);
+    }
 }

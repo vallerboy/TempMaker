@@ -22,6 +22,9 @@ public class MainController {
 
     private void getWeather(String city) {
         WeatherDto weatherDto = loadWeatherService.loadWeatherFor(city);
+        double avg  = loadWeatherService.loadAvgForForecastWeather(city);
+
         menuView.printWeather(weatherDto);
+        menuView.printAvg(avg);
     }
 }

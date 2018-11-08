@@ -2,6 +2,7 @@ package pl.oskarpolak.tempmaker.models;
 
 import com.google.gson.Gson;
 import pl.oskarpolak.tempmaker.models.dto.WeatherDto;
+import pl.oskarpolak.tempmaker.models.dto.ForecastWeatherDto;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -17,11 +18,20 @@ public class LoadWeatherService {
 
 
     public WeatherDto loadWeatherFor(String cityName){
-        WeatherDto weatherDto = convertJsonToWeather(readWebsite("https://api.openweathermap.org/data/2.5/weather?q="
+        WeatherDto weatherDto = convertJsonToCurrentWeather(readWebsite("https://api.openweathermap.org/data/2.5/weather?q="
                         + cityName
                         + "&appid="
                         + Config.API_KEY));
         return weatherDto;
+    }
+
+    public double loadAvgForForecastWeather(String cityName){
+        double avgTemp = convertJsonToForecastTempAverage(readWebsite("https://api.openweathermap.org/data/2.5/forecast?q="
+                + cityName
+                + "&appid="
+                + Config.API_KEY));
+
+        return avgTemp;
     }
 
     private String readWebsite(String url){
@@ -45,7 +55,27 @@ public class LoadWeatherService {
         return content.toString();
     }
 
-    private WeatherDto convertJsonToWeather(String json){
+    private WeatherDto convertJsonToCurrentWeather(String json){
          return gson.fromJson(json, WeatherDto.class);
+    }
+
+    private double convertJsonToForecastTempAverage(String json){
+        ForecastWeatherDto forecastWeatherDto =
+                gson.fromJson(json, ForecastWeatherDto.class);
+
+        double sum = 0;
+        for (WeatherDto currentWeatherDto : forecastWeatherDto.getForecastWeatherList()) {
+            sum += currentWeatherDto.getTempDto().getTemp();
+        }
+
+        return sum / forecastWeatherDto.getForecastWeatherList().size();
+
+//        return gson.fromJson(json, ForecastWeatherDto.class).getForecastWeatherList()
+//                 .stream()
+//                 .mapToDouble(s -> s.getTempDto().getTemp())
+//                 .average()
+//                 .orElse(0);
+//
+
     }
 }
